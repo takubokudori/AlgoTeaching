@@ -1,6 +1,7 @@
 *
 
 !.gitignore
+!*/
 !src/**
 !.idea/compiler.xml
 !.idea/description.html
@@ -9,3 +10,4 @@
 !.idea/modules.xml
 !.idea/uiDesigner.xml
 !.idea/vcs.xml
+!AlgoTeaching.iml
