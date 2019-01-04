@@ -33,13 +33,13 @@ public class AlgoTeaching extends JFrame implements ActionListener {
     /**
      *
      */
-    static JMenuBar menubar = new JMenuBar();
-    static JMenu[] menu = new JMenu[MainPanel.MENU_NUM];
-    static JMenuItem[] sortmenu = new JMenuItem[MainPanel.SORTING_NUM];
-    static JMenuItem[] zukeimenu = new JMenuItem[MainPanel.ZUKEING_NUM];
-    static JMenuItem[] displaymenu = new JMenuItem[MainPanel.DISPLAY_FORMAT];
-    static JMenuItem[] optionmenu = new JMenuItem[MainPanel.OPTION_NUM];
-    static MainPanel panel = new MainPanel();
+    private static JMenuBar menubar = new JMenuBar();
+    private static JMenu[] menu = new JMenu[MainPanel.MENU_NUM];
+    private static JMenuItem[] sortMenu = new JMenuItem[MainPanel.SORTING_NUM];
+    private static JMenuItem[] zukeiMenu = new JMenuItem[MainPanel.ZUKEING_NUM];
+    private static JMenuItem[] displayMenu = new JMenuItem[MainPanel.DISPLAY_FORMAT];
+    private static JMenuItem[] optionMenu = new JMenuItem[MainPanel.OPTION_NUM];
+    private static MainPanel panel = new MainPanel();
 
     public AlgoTeaching() {
         // タイトルを設定
@@ -67,24 +67,24 @@ public class AlgoTeaching extends JFrame implements ActionListener {
         }
 
         for (int i = 0; i < MainPanel.SORTING_NUM; i++) {
-            sortmenu[i] = new JMenuItem(MainPanel.sortstr[i]);
-            sortmenu[i].addActionListener(frame);
-            menu[0].add(sortmenu[i]);    // ソート種類
+            sortMenu[i] = new JMenuItem(MainPanel.sortstr[i]);
+            sortMenu[i].addActionListener(frame);
+            menu[0].add(sortMenu[i]);    // ソート種類
         }
         for (int i = 0; i < MainPanel.ZUKEING_NUM; i++) {
-            zukeimenu[i] = new JMenuItem(MainPanel.zukeistr[i]);
-            zukeimenu[i].addActionListener(frame);
-            menu[1].add(zukeimenu[i]);    // 図形
+            zukeiMenu[i] = new JMenuItem(MainPanel.zukeistr[i]);
+            zukeiMenu[i].addActionListener(frame);
+            menu[1].add(zukeiMenu[i]);    // 図形
         }
         for (int i = 0; i < MainPanel.DISPLAY_FORMAT; i++) {
-            displaymenu[i] = new JMenuItem(MainPanel.displaystr[i]);
-            displaymenu[i].addActionListener(frame);
-            menu[2].add(displaymenu[i]);    // 図形
+            displayMenu[i] = new JMenuItem(MainPanel.displaystr[i]);
+            displayMenu[i].addActionListener(frame);
+            menu[2].add(displayMenu[i]);    // 図形
         }
         for (int i = 0; i < MainPanel.OPTION_NUM; i++) {
-            optionmenu[i] = new JMenuItem(MainPanel.optionstr[i]);
-            optionmenu[i].addActionListener(frame);
-            menu[3].add(optionmenu[i]);    // 図形
+            optionMenu[i] = new JMenuItem(MainPanel.optionstr[i]);
+            optionMenu[i].addActionListener(frame);
+            menu[3].add(optionMenu[i]);    // 図形
         }
         frame.setSize(1500, 1500);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -96,25 +96,25 @@ public class AlgoTeaching extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         for (int i = 0; i < MainPanel.SORTING_NUM; i++) {
-            if (e.getSource() == sortmenu[i]) {
+            if (e.getSource() == sortMenu[i]) {
                 panel.setSortingSelect(i);
                 break;
             }
         }
         for (int i = 0; i < MainPanel.ZUKEING_NUM; i++) {
-            if (e.getSource() == zukeimenu[i]) {
+            if (e.getSource() == zukeiMenu[i]) {
                 panel.setZukeingSelect(i);
                 break;
             }
         }
         for (int i = 0; i < MainPanel.DISPLAY_FORMAT; i++) {
-            if (e.getSource() == displaymenu[i]) {
+            if (e.getSource() == displayMenu[i]) {
                 panel.changeDisplay(i);
                 break;
             }
         }
         for (int i = 0; i < MainPanel.OPTION_NUM; i++) {
-            if (e.getSource() == optionmenu[i]) {
+            if (e.getSource() == optionMenu[i]) {
                 String value;
                 switch (i) {
                     case 0:
@@ -416,20 +416,21 @@ class MainPanel extends JPanel implements Runnable, KeyListener {
         // テキストフィールド・ボタンのアクションリスナ
 
         public void actionPerformed(ActionEvent e) {
-            if (e.getSource() == bntextf) {
+            Object s = e.getSource();
+            if (s == bntextf) {
                 JTextField tmp = (JTextField) e.getSource();
                 sblocks.NumChange(Integer.parseInt(tmp.getText()));
-            } else if (e.getSource() == inputtextf) {
+            } else if (s == inputtextf) {
                 JTextField tmp = (JTextField) e.getSource();
                 String temp = tmp.getText();
                 String[] temps = temp.split(" ");
                 sblocks.setA(temps);
-            } else if (e.getSource() == startb) {
+            } else if (s == startb) {
                 if (!running_state) threadStart();
                 else running_state = false;
-            } else if (e.getSource() == randomb) {
+            } else if (s == randomb) {
                 sblocks.randomSort();
-            } else if (e.getSource() == sort_select) {
+            } else if (s == sort_select) {
                 JComboBox<String> tmp = (JComboBox<String>) e.getSource();
                 String tstr = (String) tmp.getSelectedItem();
                 for (int i = 0; i < SORTING_NUM; i++) {
@@ -437,11 +438,11 @@ class MainPanel extends JPanel implements Runnable, KeyListener {
                         sorting_select = i;
                     }
                 }
-            } else if (e.getSource() == orderb) {
+            } else if (s == orderb) {
                 reverseAscending_order();
-            } else if (e.getSource() == printb) {
+            } else if (s == printb) {
                 inputtextf.setText(sblocks.getText());
-            } else if (e.getSource() == zukei_select) {
+            } else if (s == zukei_select) {
                 JComboBox<String> tmp = (JComboBox<String>) e.getSource();
                 String tstr = (String) tmp.getSelectedItem();
                 for (int i = 0; i < ZUKEING_NUM; i++) {
